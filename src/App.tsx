@@ -10,8 +10,7 @@ import { ErrorNotification } from './components/ErrorNotification';
 
 export const App: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
-  const [errorMessage, setErrorMessage] = useState('Unable to load todos');
-  const [isError, setIsError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const [selected, setSelected] = useState(Selected.All);
 
   const todosToShow = todos.filter(todo => {
@@ -34,16 +33,15 @@ export const App: React.FC = () => {
   };
 
   const showError = (message: string) => {
-    setIsError(true);
     setErrorMessage(message);
 
     setTimeout(() => {
-      setIsError(false);
+      setErrorMessage('');
     }, 3000);
   };
 
   const onCloseError = () => {
-    setIsError(false);
+    setErrorMessage('');
   };
 
   useEffect(() => {
@@ -80,7 +78,6 @@ export const App: React.FC = () => {
       </div>
 
       <ErrorNotification
-        isError={isError}
         errorMessage={errorMessage}
         onCloseError={onCloseError}
       />
